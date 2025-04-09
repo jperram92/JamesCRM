@@ -24,6 +24,26 @@ function getCurrentUser() {
   };
 }
 
+// Render user info in the navigation bar
+function renderUserInfo() {
+  const userInfoContainer = document.getElementById('userInfoContainer');
+  if (!userInfoContainer) return;
+
+  const user = getCurrentUser();
+
+  userInfoContainer.innerHTML = `
+    <div class="flex items-center">
+      <div class="bg-indigo-600 rounded-full h-8 w-8 flex items-center justify-center text-white font-semibold">
+        ${user.first_name.charAt(0)}${user.last_name.charAt(0)}
+      </div>
+      <div class="ml-2">
+        <div class="text-sm font-medium text-white">${user.first_name} ${user.last_name}</div>
+        <div class="text-xs text-gray-300">${user.email}</div>
+      </div>
+    </div>
+  `;
+}
+
 // Redirect to login if not logged in
 function requireAuth() {
   if (!isLoggedIn()) {
@@ -47,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.pathname.includes('deals.html') ||
       window.location.pathname.includes('admin.html')) {
     requireAuth();
+
+    // Render user info in the navigation bar
+    renderUserInfo();
   }
 
   // Add logout functionality to all logout links

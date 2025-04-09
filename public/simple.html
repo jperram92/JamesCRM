@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - JamesCRM</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth.js"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
   <!-- Navigation -->
@@ -12,13 +13,17 @@
     <div class="container mx-auto px-4 py-4">
       <div class="flex justify-between items-center">
         <div class="text-xl font-bold">JamesCRM</div>
-        <div class="space-x-4">
-          <a href="simple.html" class="text-indigo-300 hover:text-indigo-200">Dashboard</a>
-          <a href="companies.html" class="hover:text-gray-300">Companies</a>
-          <a href="contacts.html" class="hover:text-gray-300">Contacts</a>
-          <a href="deals.html" class="hover:text-gray-300">Deals</a>
-          <a href="admin.html" class="hover:text-gray-300">Admin</a>
-          <a href="login.html" class="hover:text-gray-300">Logout</a>
+        <div class="flex items-center space-x-6">
+          <div class="space-x-4">
+            <a href="simple.html" class="text-indigo-300 hover:text-indigo-200">Dashboard</a>
+            <a href="companies.html" class="hover:text-gray-300">Companies</a>
+            <a href="contacts.html" class="hover:text-gray-300">Contacts</a>
+            <a href="deals.html" class="hover:text-gray-300">Deals</a>
+            <a href="admin.html" class="hover:text-gray-300">Admin</a>
+            <a href="login.html" class="hover:text-gray-300">Logout</a>
+          </div>
+          <!-- User Info Container -->
+          <div id="userInfoContainer" class="border-l border-gray-700 pl-4"></div>
         </div>
       </div>
     </div>
