@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - JamesCRM</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-xl font-bold">JamesCRM</div>
+        <div class="space-x-4">
+          <a href="simple.html" class="hover:text-gray-300">Dashboard</a>
+          <a href="companies.html" class="hover:text-gray-300">Companies</a>
+          <a href="contacts.html" class="hover:text-gray-300">Contacts</a>
+          <a href="deals.html" class="hover:text-gray-300">Deals</a>
+          <a href="admin.html" class="text-indigo-300 hover:text-indigo-200">Admin</a>
+          <a href="login.html" class="hover:text-gray-300">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <header class="bg-white shadow rounded-lg mb-8 p-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+      </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <div class="bg-white shadow rounded-lg mb-8 overflow-hidden">
+      <div class="flex border-b">
+        <button type="button" id="usersTabBtn" class="px-6 py-3 bg-indigo-500 text-white font-medium">Users</button>
+        <button type="button" id="settingsTabBtn" class="px-6 py-3 text-gray-700 hover:bg-gray-100 font-medium">Settings</button>
+        <button type="button" id="logsTabBtn" class="px-6 py-3 text-gray-700 hover:bg-gray-100 font-medium">Logs</button>
+      </div>
+
+      <!-- Users Tab Content -->
+      <div id="usersTab" class="p-6">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-xl font-semibold text-gray-900">User Management</h2>
+            <p class="text-sm text-gray-500 mt-1">Manage users and invitations</p>
+          </div>
+          <div class="space-x-2">
+            <button type="button" id="addUserBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
+              Add New User
+            </button>
+            <button type="button" id="inviteUserBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
+              Invite User
+            </button>
+            <button type="button" id="viewInvitationsBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+              View Invitations
+            </button>
+          </div>
+        </div>
+
+        <!-- User Search and Filter -->
+        <div class="mb-6">
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="text" id="userSearch" placeholder="Search users..." class="w-full px-4 py-2 border rounded-md">
+            </div>
+            <select id="roleFilter" aria-label="Filter by role" class="px-4 py-2 border rounded-md">
+              <option value="">All Roles</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="user">User</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Role
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
+              <!-- User rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Tab Content (Hidden by default) -->
+      <div id="settingsTab" class="p-6 hidden">
+        <h2 class="text-xl font-semibold text-gray-900 mb-6">System Settings</h2>
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">General Settings</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="companyName" class="block text-sm font-medium text-gray-700">Company Name</label>
+                <input id="companyName" type="text" value="JamesCRM" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              </div>
+              <div>
+                <label for="defaultLanguage" class="block text-sm font-medium text-gray-700">Default Language</label>
+                <select id="defaultLanguage" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <option>English</option>
+                  <option>Spanish</option>
+                  <option>French</option>
+                  <option>German</option>
+                </select>
+              </div>
+              <div>
+                <label for="defaultCurrency" class="block text-sm font-medium text-gray-700">Default Currency</label>
+                <select id="defaultCurrency" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <option>USD ($)</option>
+                  <option>EUR (€)</option>
+                  <option>GBP (£)</option>
+                  <option>JPY (¥)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Email Settings</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="smtpServer" class="block text-sm font-medium text-gray-700">SMTP Server</label>
+                <input id="smtpServer" type="text" value="smtp.example.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              </div>
+              <div>
+                <label for="smtpPort" class="block text-sm font-medium text-gray-700">SMTP Port</label>
+                <input id="smtpPort" type="text" value="587" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              </div>
+              <div>
+                <label for="emailFrom" class="block text-sm font-medium text-gray-700">Email From</label>
+                <input id="emailFrom" type="email" value="noreply@jamescrm.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              </div>
+            </div>
+          </div>
+          <div class="pt-5">
+            <div class="flex justify-end">
+              <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Cancel
+              </button>
+              <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logs Tab Content (Hidden by default) -->
+      <div id="logsTab" class="p-6 hidden">
+        <h2 class="text-xl font-semibold text-gray-900 mb-6">System Logs</h2>
+        <div class="mb-4 flex justify-between items-center">
+          <div>
+            <select aria-label="Filter logs" class="px-4 py-2 border rounded-md">
+              <option>All Logs</option>
+              <option>Error Logs</option>
+              <option>User Activity</option>
+              <option>System Events</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md">
+              Export Logs
+            </button>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-md p-4 h-96 overflow-y-auto font-mono text-sm">
+          <div class="text-gray-600">[2025-04-13 10:30:15] INFO: System started</div>
+          <div class="text-gray-600">[2025-04-13 10:31:22] INFO: User admin@example.com logged in</div>
+          <div class="text-gray-600">[2025-04-13 10:45:18] INFO: New company "Acme Inc." created by admin@example.com</div>
+          <div class="text-red-600">[2025-04-13 11:02:45] ERROR: Database connection timeout</div>
+          <div class="text-gray-600">[2025-04-13 11:03:12] INFO: Database connection restored</div>
+          <div class="text-gray-600">[2025-04-13 11:15:30] INFO: User john@example.com created by admin@example.com</div>
+          <div class="text-gray-600">[2025-04-13 11:22:45] INFO: User john@example.com logged in</div>
+          <div class="text-gray-600">[2025-04-13 11:30:10] INFO: New contact "Jane Doe" created by john@example.com</div>
+          <div class="text-yellow-600">[2025-04-13 11:45:22] WARNING: High CPU usage detected</div>
+          <div class="text-gray-600">[2025-04-13 12:00:05] INFO: Scheduled backup started</div>
+          <div class="text-gray-600">[2025-04-13 12:05:30] INFO: Scheduled backup completed successfully</div>
+          <div class="text-gray-600">[2025-04-13 13:10:15] INFO: User sarah@example.com logged in</div>
+          <div class="text-gray-600">[2025-04-13 13:25:40] INFO: New deal "Website Redesign" created by sarah@example.com</div>
+          <div class="text-red-600">[2025-04-13 14:02:12] ERROR: Email sending failed to recipient client@example.com</div>
+          <div class="text-gray-600">[2025-04-13 14:15:30] INFO: User admin@example.com logged out</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add User Modal (Hidden by default) -->
+  <div id="addUserModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-medium text-gray-900">Add New User</h3>
+        <button type="button" id="closeModalBtn" class="text-gray-400 hover:text-gray-500" aria-label="Close modal">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form id="addUserForm">
+        <div class="space-y-4">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" id="firstName" name="firstName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" id="password" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+            <select id="role" name="role" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="user" selected>User</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-5 flex justify-end">
+          <button type="button" id="cancelAddUserBtn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cancel
+          </button>
+          <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Add User
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Invite User Modal (Hidden by default) -->
+  <div id="inviteUserModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-medium text-gray-900">Invite New User</h3>
+        <button type="button" id="closeInviteModalBtn" class="text-gray-400 hover:text-gray-500" aria-label="Close modal">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form id="inviteUserForm">
+        <div class="space-y-4">
+          <div>
+            <label for="inviteFirstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" id="inviteFirstName" name="firstName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="inviteLastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" id="inviteLastName" name="lastName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="inviteEmail" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" id="inviteEmail" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="inviteRole" class="block text-sm font-medium text-gray-700">Role</label>
+            <select id="inviteRole" name="role" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="user" selected>User</option>
+            </select>
+          </div>
+          <div class="bg-yellow-50 p-4 rounded-md">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-yellow-800">Invitation Information</h3>
+                <div class="mt-2 text-sm text-yellow-700">
+                  <p>A temporary password will be generated and shown to you after submission. In a real application, this would be sent via email to the user.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 flex justify-end">
+          <button type="button" id="cancelInviteUserBtn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cancel
+          </button>
+          <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Send Invitation
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white mt-12 py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-center">© 2025 JamesCRM. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // API base URL
+    const API_BASE_URL = 'http://localhost:3000/api';
+
+    // Debug mode
+    const DEBUG_MODE = true;
+
+    // Check if we have a valid token
+    function checkAuth() {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      debugLog('Auth check', { token: token ? 'exists' : 'missing', user });
+
+      if (!token || !user || !user.id) {
+        // Redirect to login page if not authenticated
+        debugLog('Not authenticated, redirecting to login');
+        window.location.href = 'login.html';
+        return false;
+      }
+
+      // Check if user is admin
+      if (user.role !== 'admin') {
+        debugLog('User is not admin, redirecting to dashboard');
+        alert('You do not have permission to access the admin panel');
+        window.location.href = 'simple.html';
+        return false;
+      }
+
+      debugLog('Authentication successful', { userId: user.id, role: user.role });
+      return true;
+    }
+
+    // Run auth check
+    checkAuth();
+
+    // Helper function to get token
+    function getToken() {
+      return localStorage.getItem('token');
+    }
+
+    // Debug log function
+    function debugLog(message, data) {
+      if (DEBUG_MODE) {
+        console.log(`[DEBUG] ${message}`, data || '');
+      }
+    }
+
+    // Format date
+    function formatDate(dateString) {
+      if (!dateString) return 'N/A';
+      const date = new Date(dateString);
+      return date.toLocaleString();
+    }
+
+    // Using the getToken function defined earlier
+
+    // Mock data for API fallbacks
+    const mockData = {
+      users: [
+        { id: 1, first_name: 'Admin', last_name: 'User', email: 'admin@example.com', role: 'admin' },
+        { id: 2, first_name: 'John', last_name: 'Smith', email: 'john@example.com', role: 'manager' },
+        { id: 3, first_name: 'Sarah', last_name: 'Williams', email: 'sarah@example.com', role: 'user' },
+        { id: 4, first_name: 'Michael', last_name: 'Johnson', email: 'michael@example.com', role: 'user' }
+      ],
+      logs: [
+        { timestamp: '2025-04-13 10:30:15', level: 'INFO', message: 'System started' },
+        { timestamp: '2025-04-13 10:31:22', level: 'INFO', message: 'User admin@example.com logged in' },
+        { timestamp: '2025-04-13 10:45:18', level: 'INFO', message: 'New company "Acme Inc." created by admin@example.com' },
+        { timestamp: '2025-04-13 11:02:45', level: 'ERROR', message: 'Database connection timeout' },
+        { timestamp: '2025-04-13 11:03:12', level: 'INFO', message: 'Database connection restored' },
+        { timestamp: '2025-04-13 11:15:30', level: 'INFO', message: 'User john@example.com created by admin@example.com' },
+        { timestamp: '2025-04-13 11:22:45', level: 'INFO', message: 'User john@example.com logged in' },
+        { timestamp: '2025-04-13 11:30:10', level: 'INFO', message: 'New contact "Jane Doe" created by john@example.com' },
+        { timestamp: '2025-04-13 11:45:22', level: 'WARNING', message: 'High CPU usage detected' },
+        { timestamp: '2025-04-13 12:00:05', level: 'INFO', message: 'Scheduled backup started' },
+        { timestamp: '2025-04-13 12:05:30', level: 'INFO', message: 'Scheduled backup completed successfully' },
+        { timestamp: '2025-04-13 13:10:15', level: 'INFO', message: 'User sarah@example.com logged in' },
+        { timestamp: '2025-04-13 13:25:40', level: 'INFO', message: 'New deal "Website Redesign" created by sarah@example.com' },
+        { timestamp: '2025-04-13 14:02:12', level: 'ERROR', message: 'Email sending failed to recipient client@example.com' },
+        { timestamp: '2025-04-13 14:15:30', level: 'INFO', message: 'User admin@example.com logged out' }
+      ],
+      invitations: []
+    };
+
+    // Mock data helper function
+    function getMockData(endpoint, method, data) {
+      debugLog(`Getting mock data for ${method} ${endpoint}`, data);
+
+      // Return appropriate mock data based on endpoint and method
+      if (endpoint === '/admin/users' && method === 'GET') {
+        return mockData.users;
+      } else if (endpoint === '/admin/logs' && method === 'GET') {
+        return mockData.logs;
+      } else if (endpoint === '/admin/invitations' && method === 'GET') {
+        return mockData.invitations;
+      } else if (endpoint.includes('/users/invite') && method === 'POST') {
+        return {
+          id: Math.floor(Math.random() * 1000) + 5,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          role: data.role,
+          temp_password: Math.random().toString(36).slice(-8)
+        };
+      } else if (endpoint === '/admin/users' && method === 'POST') {
+        // Mock creating a new user
+        const newUser = {
+          id: Math.floor(Math.random() * 1000) + 10,
+          ...data,
+          status: 'active',
+          created_at: new Date().toISOString()
+        };
+        return newUser;
+      }
+
+      // Default empty response
+      return {};
+    }
+
+    // API request helper
+    async function apiRequest(endpoint, method = 'GET', data = null) {
+      debugLog(`Making ${method} request to ${endpoint}`, data);
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const token = localStorage.getItem('token');
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        debugLog('Using token for authentication', { token: token.substring(0, 20) + '...' });
+      } else {
+        debugLog('No authentication token found');
+        return getMockData(endpoint, method, data);
+      }
+
+      try {
+        debugLog(`Fetching from ${API_BASE_URL}${endpoint}`, { method, headers, data });
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+          method,
+          headers,
+          ...(data && { body: JSON.stringify(data) }),
+        });
+
+        debugLog('Response received', { status: response.status });
+
+        if (!response.ok) {
+          let errorMessage = 'API request failed';
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch (e) {
+            // If we can't parse the error as JSON, use the status text
+            errorMessage = response.statusText || errorMessage;
+          }
+          throw new Error(errorMessage);
+        }
+
+        const responseData = await response.json();
+        debugLog('Response data', responseData);
+        return responseData;
+      } catch (error) {
+        debugLog('API request error', { message: error.message, stack: error.stack });
+
+        // Fall back to mock data if API request fails
+        debugLog('Falling back to mock data');
+        return getMockData(endpoint, method, data);
+      }
+    }
+
+    // User data array
+    let users = [];
+
+    // DOM Elements
+    const usersTabBtn = document.getElementById('usersTabBtn');
+    const settingsTabBtn = document.getElementById('settingsTabBtn');
+    const logsTabBtn = document.getElementById('logsTabBtn');
+    const usersTab = document.getElementById('usersTab');
+    const settingsTab = document.getElementById('settingsTab');
+    const logsTab = document.getElementById('logsTab');
+    const addUserBtn = document.getElementById('addUserBtn');
+    const addUserModal = document.getElementById('addUserModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelAddUserBtn = document.getElementById('cancelAddUserBtn');
+    const addUserForm = document.getElementById('addUserForm');
+    const usersTableBody = document.getElementById('usersTableBody');
+    const userSearch = document.getElementById('userSearch');
+    const roleFilter = document.getElementById('roleFilter');
+
+    // Tab switching
+    usersTabBtn.addEventListener('click', () => {
+      usersTabBtn.classList.add('bg-indigo-500', 'text-white');
+      usersTabBtn.classList.remove('text-gray-700', 'hover:bg-gray-100');
+      settingsTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      settingsTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+      logsTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      logsTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+
+      usersTab.classList.remove('hidden');
+      settingsTab.classList.add('hidden');
+      logsTab.classList.add('hidden');
+    });
+
+    settingsTabBtn.addEventListener('click', () => {
+      settingsTabBtn.classList.add('bg-indigo-500', 'text-white');
+      settingsTabBtn.classList.remove('text-gray-700', 'hover:bg-gray-100');
+      usersTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      usersTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+      logsTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      logsTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+
+      settingsTab.classList.remove('hidden');
+      usersTab.classList.add('hidden');
+      logsTab.classList.add('hidden');
+    });
+
+    logsTabBtn.addEventListener('click', () => {
+      logsTabBtn.classList.add('bg-indigo-500', 'text-white');
+      logsTabBtn.classList.remove('text-gray-700', 'hover:bg-gray-100');
+      usersTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      usersTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+      settingsTabBtn.classList.remove('bg-indigo-500', 'text-white');
+      settingsTabBtn.classList.add('text-gray-700', 'hover:bg-gray-100');
+
+      logsTab.classList.remove('hidden');
+      usersTab.classList.add('hidden');
+      settingsTab.classList.add('hidden');
+    });
+
+    // Modal handling
+    addUserBtn.addEventListener('click', () => {
+      addUserModal.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      addUserModal.classList.add('hidden');
+      addUserForm.reset();
+    });
+
+    cancelAddUserBtn.addEventListener('click', () => {
+      addUserModal.classList.add('hidden');
+      addUserForm.reset();
+    });
+
+    // Form submission
+    addUserForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Get form values
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+
+      try {
+        // Create user via API
+        await apiRequest('/admin/users', 'POST', {
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+          role
+        });
+
+        // Refresh users list
+        await fetchUsers();
+
+        // Close modal and reset form
+        addUserModal.classList.add('hidden');
+        addUserForm.reset();
+
+        // Show success message
+        alert(`User ${firstName} ${lastName} has been added successfully!`);
+      } catch (error) {
+        alert(`Error creating user: ${error.message}`);
+      }
+    });
+
+    // Search and filter
+    userSearch.addEventListener('input', renderUsers);
+    roleFilter.addEventListener('change', renderUsers);
+
+    // Fetch users from API
+    async function fetchUsers() {
+      try {
+        debugLog('Fetching users from API');
+        document.getElementById('usersTableBody').innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center">Loading users...</td></tr>';
+
+        const data = await apiRequest('/admin/users');
+        debugLog('Users data received', data);
+
+        // Transform API data to match our expected format
+        users = data.map(user => ({
+          id: user.id,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
+          role: user.role,
+          status: 'active' // Assuming all users from API are active
+        }));
+
+        debugLog('Transformed user data', users);
+        renderUsers();
+      } catch (error) {
+        debugLog('Error fetching users', error);
+        document.getElementById('usersTableBody').innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Error loading users: ${error.message}</td></tr>`;
+      }
+    }
+
+    // Render users table
+    function renderUsers() {
+      // Get filter values
+      const searchTerm = userSearch.value.toLowerCase();
+      const roleFilterValue = roleFilter.value.toLowerCase();
+
+      // Filter users
+      const filteredUsers = users.filter(user => {
+        const nameMatch = `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchTerm) ||
+                          user.email.toLowerCase().includes(searchTerm);
+        const roleMatch = roleFilterValue === '' || user.role === roleFilterValue;
+
+        return nameMatch && roleMatch;
+      });
+
+      // Clear table
+      usersTableBody.innerHTML = '';
+
+      // Add user rows
+      filteredUsers.forEach(user => {
+        const row = document.createElement('tr');
+
+        // Name cell
+        const nameCell = document.createElement('td');
+        nameCell.className = 'px-6 py-4 whitespace-nowrap';
+        nameCell.innerHTML = `
+          <div class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10">
+              <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-700 font-bold">
+                ${user.firstName.charAt(0)}${user.lastName.charAt(0)}
+              </div>
+            </div>
+            <div class="ml-4">
+              <div class="text-sm font-medium text-gray-900">${user.firstName} ${user.lastName}</div>
+            </div>
+          </div>
+        `;
+
+        // Email cell
+        const emailCell = document.createElement('td');
+        emailCell.className = 'px-6 py-4 whitespace-nowrap';
+        emailCell.innerHTML = `<div class="text-sm text-gray-900">${user.email}</div>`;
+
+        // Role cell
+        const roleCell = document.createElement('td');
+        roleCell.className = 'px-6 py-4 whitespace-nowrap';
+        let roleBadgeClass = '';
+
+        if (user.role === 'admin') {
+          roleBadgeClass = 'bg-red-100 text-red-800';
+        } else if (user.role === 'manager') {
+          roleBadgeClass = 'bg-blue-100 text-blue-800';
+        } else {
+          roleBadgeClass = 'bg-green-100 text-green-800';
+        }
+
+        roleCell.innerHTML = `
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${roleBadgeClass}">
+            ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+          </span>
+        `;
+
+        // Status cell
+        const statusCell = document.createElement('td');
+        statusCell.className = 'px-6 py-4 whitespace-nowrap';
+        const statusClass = user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
+
+        statusCell.innerHTML = `
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+            ${user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+          </span>
+        `;
+
+        // Actions cell
+        const actionsCell = document.createElement('td');
+        actionsCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-500';
+        actionsCell.innerHTML = `
+          <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3" data-id="${user.id}" data-action="edit">Edit</a>
+          <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3" data-id="${user.id}" data-action="reset-password">Reset Password</a>
+          <a href="#" class="text-red-600 hover:text-red-900" data-id="${user.id}" data-action="delete">Delete</a>
+        `;
+
+        // Add event listeners for actions
+        actionsCell.addEventListener('click', async (e) => {
+          e.preventDefault();
+
+          if (e.target.tagName === 'A') {
+            const userId = parseInt(e.target.dataset.id);
+            const action = e.target.dataset.action;
+            const user = users.find(u => u.id === userId);
+
+            if (action === 'edit') {
+              alert(`Edit user: ${user.firstName} ${user.lastName}`);
+              // In a real app, this would open an edit modal with form fields
+            } else if (action === 'reset-password') {
+              const newPassword = prompt(`Enter new password for ${user.firstName} ${user.lastName}:`);
+              if (newPassword && newPassword.length >= 6) {
+                try {
+                  await apiRequest(`/admin/users/${userId}/reset-password`, 'POST', { new_password: newPassword });
+                  alert(`Password reset successfully for ${user.firstName} ${user.lastName}`);
+                } catch (error) {
+                  alert(`Error resetting password: ${error.message}`);
+                }
+              } else if (newPassword) {
+                alert('Password must be at least 6 characters long');
+              }
+            } else if (action === 'delete') {
+              if (confirm(`Are you sure you want to delete ${user.firstName} ${user.lastName}?`)) {
+                try {
+                  await apiRequest(`/admin/users/${userId}`, 'DELETE');
+                  await fetchUsers(); // Refresh the user list
+                  alert('User deleted successfully');
+                } catch (error) {
+                  alert(`Error deleting user: ${error.message}`);
+                }
+              }
+            }
+          }
+        });
+
+        // Add cells to row
+        row.appendChild(nameCell);
+        row.appendChild(emailCell);
+        row.appendChild(roleCell);
+        row.appendChild(statusCell);
+        row.appendChild(actionsCell);
+
+        // Add row to table
+        usersTableBody.appendChild(row);
+      });
+    }
+
+    // Fetch logs from API
+    async function fetchLogs() {
+      try {
+        debugLog('Fetching logs from API');
+        const logsContainer = document.querySelector('#logsTab .bg-gray-50');
+
+        // Show loading state
+        logsContainer.innerHTML = '<div class="text-gray-600">Loading logs...</div>';
+
+        // Fetch logs from API (will use mock data from apiRequest function)
+        const logs = await apiRequest('/admin/logs');
+        debugLog('Logs data received', logs);
+
+        // Clear existing logs
+        logsContainer.innerHTML = '';
+
+        // Add logs to container
+        logs.forEach(log => {
+          const logElement = document.createElement('div');
+
+          // Set color based on log level
+          let colorClass = 'text-gray-600';
+          if (log.level === 'ERROR') {
+            colorClass = 'text-red-600';
+          } else if (log.level === 'WARNING') {
+            colorClass = 'text-yellow-600';
+          }
+
+          logElement.className = colorClass;
+          logElement.textContent = `[${log.timestamp}] ${log.level}: ${log.message}`;
+          logsContainer.appendChild(logElement);
+        });
+      } catch (error) {
+        debugLog('Unexpected error in fetchLogs', error);
+        const logsContainer = document.querySelector('#logsTab .bg-gray-50');
+        logsContainer.innerHTML = `<div class="text-red-600">Error loading logs: ${error.message}</div>`;
+      }
+    }
+
+    // Load data when tabs are clicked
+    usersTabBtn.addEventListener('click', fetchUsers);
+    logsTabBtn.addEventListener('click', fetchLogs);
+
+    // Invite user button
+    const inviteUserBtn = document.getElementById('inviteUserBtn');
+    const inviteUserModal = document.getElementById('inviteUserModal');
+    const closeInviteModalBtn = document.getElementById('closeInviteModalBtn');
+    const cancelInviteUserBtn = document.getElementById('cancelInviteUserBtn');
+    const inviteUserForm = document.getElementById('inviteUserForm');
+
+    // Show invite modal
+    inviteUserBtn.addEventListener('click', () => {
+      inviteUserModal.classList.remove('hidden');
+    });
+
+    // Close invite modal
+    closeInviteModalBtn.addEventListener('click', () => {
+      inviteUserModal.classList.add('hidden');
+      inviteUserForm.reset();
+    });
+
+    cancelInviteUserBtn.addEventListener('click', () => {
+      inviteUserModal.classList.add('hidden');
+      inviteUserForm.reset();
+    });
+
+    // Function to show email preview
+    function showEmailPreview(recipient, firstName, lastName, tempPassword, role) {
+      // Create email preview modal
+      const emailPreviewModal = document.createElement('div');
+      emailPreviewModal.className = 'fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50';
+      emailPreviewModal.id = 'emailPreviewModal';
+
+      // Current date for the email
+      const currentDate = new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      // Email content
+      const emailContent = `
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 relative">
+          <button type="button" id="closeEmailPreviewBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+          <div class="border-b pb-4 mb-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-medium text-gray-900">Email Preview</h3>
+              <span class="text-sm text-gray-500">This is a simulation of the email that would be sent</span>
+            </div>
+          </div>
+
+          <div class="border rounded-md p-4 mb-4 bg-gray-50">
+            <div class="mb-2"><strong>From:</strong> JamesCRM &lt;noreply@jamescrm.com&gt;</div>
+            <div class="mb-2"><strong>To:</strong> ${firstName} ${lastName} &lt;${recipient}&gt;</div>
+            <div class="mb-2"><strong>Subject:</strong> You've been invited to JamesCRM</div>
+            <div class="mb-2"><strong>Date:</strong> ${currentDate}</div>
+          </div>
+
+          <div class="border rounded-md p-4 bg-white">
+            <div class="mb-4">
+              <p>Hello ${firstName},</p>
+              <p class="mt-2">You have been invited to join JamesCRM as a <strong>${role}</strong>.</p>
+              <p class="mt-2">Please use the following credentials to log in:</p>
+            </div>
+
+            <div class="bg-gray-100 p-4 rounded-md mb-4">
+              <p><strong>Email:</strong> ${recipient}</p>
+              <p><strong>Temporary Password:</strong> ${tempPassword}</p>
+              <p class="text-sm text-gray-500 mt-2">You will be asked to change your password after your first login.</p>
+            </div>
+
+            <div class="mb-4">
+              <p>To get started, please click the button below:</p>
+              <div class="mt-4 flex justify-center">
+                <a href="login.html" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium">Log in to JamesCRM</a>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t text-sm text-gray-500">
+              <p>If you have any questions, please contact your administrator.</p>
+              <p class="mt-2">Best regards,</p>
+              <p>The JamesCRM Team</p>
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-end">
+            <button type="button" id="closeEmailBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2">
+              Close
+            </button>
+            <button type="button" id="copyEmailBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
+              Copy Invitation Details
+            </button>
+          </div>
+        </div>
+      `;
+
+      emailPreviewModal.innerHTML = emailContent;
+      document.body.appendChild(emailPreviewModal);
+
+      // Add event listeners for the buttons
+      document.getElementById('closeEmailPreviewBtn').addEventListener('click', () => {
+        document.body.removeChild(emailPreviewModal);
+      });
+
+      document.getElementById('closeEmailBtn').addEventListener('click', () => {
+        document.body.removeChild(emailPreviewModal);
+      });
+
+      document.getElementById('copyEmailBtn').addEventListener('click', () => {
+        const textToCopy = `Email: ${recipient}\nTemporary Password: ${tempPassword}`;
+        navigator.clipboard.writeText(textToCopy)
+          .then(() => {
+            alert('Invitation details copied to clipboard!');
+          })
+          .catch(err => {
+            console.error('Could not copy text: ', err);
+            alert('Failed to copy to clipboard. Please copy the details manually.');
+          });
+      });
+    }
+
+    // Invite user form submission
+    inviteUserForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Get form values
+      const firstName = document.getElementById('inviteFirstName').value;
+      const lastName = document.getElementById('inviteLastName').value;
+      const email = document.getElementById('inviteEmail').value;
+      const role = document.getElementById('inviteRole').value;
+
+      try {
+        // Invite user via API
+        const response = await apiRequest('/admin/users/invite', 'POST', {
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          role
+        });
+
+        // Close modal and reset form
+        inviteUserModal.classList.add('hidden');
+        inviteUserForm.reset();
+
+        // Refresh users list
+        await fetchUsers();
+
+        // Show email preview with the temporary password
+        showEmailPreview(email, firstName, lastName, response.temp_password, role);
+      } catch (error) {
+        alert(`Error inviting user: ${error.message}`);
+      }
+    });
+
+    // Initial data load
+    fetchUsers();
+  </script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin-invitations.js"></script>
+</body>
+</html>

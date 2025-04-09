@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - JamesCRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-xl font-bold">JamesCRM</div>
+        <div class="space-x-4">
+          <a href="simple.html" class="text-indigo-300 hover:text-indigo-200">Dashboard</a>
+          <a href="companies.html" class="hover:text-gray-300">Companies</a>
+          <a href="contacts.html" class="hover:text-gray-300">Contacts</a>
+          <a href="deals.html" class="hover:text-gray-300">Deals</a>
+          <a href="admin.html" class="hover:text-gray-300">Admin</a>
+          <a href="login.html" class="hover:text-gray-300">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <header class="bg-white shadow rounded-lg mb-8 p-6">
+      <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+      <p class="text-gray-600 mt-2">A modern customer relationship management system</p>
+    </header>
+
+    <!-- Admin Quick Access -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-semibold text-gray-900">Admin Quick Access</h2>
+        <a href="admin.html" class="text-indigo-600 hover:text-indigo-800 font-medium">Go to Admin Dashboard →</a>
+      </div>
+      <div class="mt-4 text-gray-600">
+        Access administrative functions such as user management, system settings, and activity logs.
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Dashboard Card -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Dashboard</h2>
+        <p class="text-gray-600">View your CRM dashboard with key metrics and activities.</p>
+        <div class="mt-4">
+          <a href="simple.html" class="text-indigo-600 hover:text-indigo-800 font-medium">Go to Dashboard →</a>
+        </div>
+      </div>
+
+      <!-- Companies Card -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Companies</h2>
+        <p class="text-gray-600">Manage your company records and business relationships.</p>
+        <div class="mt-4">
+          <a href="companies.html" class="text-indigo-600 hover:text-indigo-800 font-medium">View Companies →</a>
+        </div>
+      </div>
+
+      <!-- Contacts Card -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Contacts</h2>
+        <p class="text-gray-600">Keep track of all your important contacts and interactions.</p>
+        <div class="mt-4">
+          <a href="contacts.html" class="text-indigo-600 hover:text-indigo-800 font-medium">View Contacts →</a>
+        </div>
+      </div>
+
+      <!-- Deals Card -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Deals</h2>
+        <p class="text-gray-600">Track your sales pipeline and manage opportunities.</p>
+        <div class="mt-4">
+          <a href="deals.html" class="text-indigo-600 hover:text-indigo-800 font-medium">View Deals →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Activities</h2>
+      <div class="space-y-4">
+        <div class="border-b pb-4">
+          <p class="text-gray-600">Call with John Smith from Acme Inc. scheduled for tomorrow at 2:00 PM.</p>
+          <p class="text-sm text-gray-500 mt-1">Today, 10:30 AM</p>
+        </div>
+        <div class="border-b pb-4">
+          <p class="text-gray-600">New deal created with XYZ Corporation worth $50,000.</p>
+          <p class="text-sm text-gray-500 mt-1">Yesterday, 3:45 PM</p>
+        </div>
+        <div class="border-b pb-4">
+          <p class="text-gray-600">Meeting notes added for client presentation with Global Tech.</p>
+          <p class="text-sm text-gray-500 mt-1">April 8, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white mt-12 py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-center">© 2025 JamesCRM. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="js/auth.js"></script>
+</body>
+</html>
