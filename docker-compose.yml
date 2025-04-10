@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: jamescrm-postgres
+    environment:
+      POSTGRES_DB: jamescrm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - jamescrm-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: jamescrm-server
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: jamescrm
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: your-secret-key
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - jamescrm-network
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: jamescrm-client
+    depends_on:
+      - server
+    environment:
+      REACT_APP_API_URL: http://localhost:3000/api
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - jamescrm-network
+
+networks:
+  jamescrm-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
