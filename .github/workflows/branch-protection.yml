@@ -6,13 +6,13 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  approval-check:
-    name: Check PR Approval
+  auto-approve-owner:
+    name: Auto-Approve Owner PRs
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
 
     steps:
-      - name: Check for required approvals
+      - name: Check PR author and auto-approve if owner
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,26 +26,29 @@ jobs:
 
             const prAuthor = pullRequest.user.login;
 
-            // Auto-approve if PR author is jperram92 (repository owner)
+            // Log PR author for debugging
+            console.log(`PR author is: ${prAuthor}`);
+
+            // If PR author is jperram92 (repository owner), we'll consider it pre-approved
             if (prAuthor === 'jperram92') {
-              console.log('PR created by repository owner jperram92 - auto-approving ✅');
-              return;
-            }
-
-            // Otherwise, check for approval from jperram92
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-
-            const approvedByJames = reviews.some(review =>
-              review.user.login === 'jperram92' &&
-              review.state === 'APPROVED'
-            );
-
-            if (!approvedByJames) {
-              core.setFailed('This PR requires approval from jperram92 before it can be merged to master.');
+              console.log('PR created by repository owner jperram92 - considered pre-approved ✅');
+              // We can't actually approve it due to GitHub restrictions, but we'll mark it as passing
             } else {
-              console.log('PR has been approved by jperram92 ✅');
+              // For non-owner PRs, we'll check for approval
+              const { data: reviews } = await github.rest.pulls.listReviews({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+              });
+
+              const approvedByJames = reviews.some(review =>
+                review.user.login === 'jperram92' &&
+                review.state === 'APPROVED'
+              );
+
+              if (!approvedByJames) {
+                core.setFailed('This PR requires approval from jperram92 before it can be merged to master.');
+              } else {
+                console.log('PR has been approved by jperram92 ✅');
+              }
             }
