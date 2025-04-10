@@ -10,6 +10,7 @@ import {
   CalendarIcon,
   EnvelopeIcon,
   PhoneIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 
 import StatCard from '../components/StatCard';
@@ -249,7 +250,7 @@ const Dashboard = () => {
           className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8 transition-colors duration-300"
         >
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <button className="btn btn-outline flex flex-col items-center justify-center py-4 h-full">
               <UserGroupIcon className="h-6 w-6 mb-2" />
               <span>Add Contact</span>
@@ -266,6 +267,10 @@ const Dashboard = () => {
               <CalendarIcon className="h-6 w-6 mb-2" />
               <span>Schedule</span>
             </button>
+            <a href="/admin" className="btn btn-primary flex flex-col items-center justify-center py-4 h-full">
+              <ShieldCheckIcon className="h-6 w-6 mb-2" />
+              <span>Admin Panel</span>
+            </a>
           </div>
         </motion.div>
 

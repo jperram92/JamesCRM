@@ -12,6 +12,8 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
+import Registration from './pages/Registration';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
               <Routes>
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Registration />} />
                 <Route
                   path="/*"
                   element={
@@ -55,6 +58,7 @@ function App() {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/admin" element={<Admin />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>

@@ -6,9 +6,36 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      // For demo/development without backend
+      if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
+        console.log('Using mock data for login in authSlice');
+
+        // Create a mock response
+        const mockResponse = {
+          user: {
+            id: 2,
+            first_name: email.split('@')[0],
+            last_name: 'User',
+            email: email,
+            role: 'user'
+          },
+          token: 'mock-token-' + Date.now()
+        };
+
+        // Store token in localStorage
+        localStorage.setItem('token', mockResponse.token);
+        localStorage.setItem('user', JSON.stringify(mockResponse.user));
+
+        return mockResponse;
+      }
+
+      // Call the real API
       const response = await authService.login(email, password);
+
       // Store token in localStorage
       localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Login failed');

@@ -172,9 +172,19 @@
                     document.getElementById('loginForm').classList.add('hidden');
                     successMessage.classList.remove('hidden');
 
+                    // Store user data in localStorage
+                    localStorage.setItem('token', 'demo-token');
+                    localStorage.setItem('user', JSON.stringify({
+                        id: 1,
+                        first_name: 'Admin',
+                        last_name: 'User',
+                        email: 'admin@example.com',
+                        role: 'admin'
+                    }));
+
                     // Redirect to dashboard
                     setTimeout(() => {
-                        window.location.href = 'http://localhost:3000/dashboard';
+                        window.location.href = 'http://localhost:3000/';
                     }, 2000);
                 } else {
                     // Error

@@ -24,6 +24,15 @@ const Navbar = () => {
     { name: 'Activities', href: '/activities' },
   ];
 
+  // Check if user is admin to show admin link
+  const isAdmin = true; // Force enable admin link for testing
+  console.log('User data:', user); // Debug user data
+
+  // Add admin link if user is admin
+  if (isAdmin) {
+    navigation.push({ name: 'Admin', href: '/admin' });
+  }
+
   return (
     <Disclosure as="nav" className="bg-gradient-to-r from-gray-800 to-gray-900 shadow-md">
       {({ open }) => (
@@ -107,6 +116,18 @@ const Navbar = () => {
                               </Link>
                             )}
                           </Menu.Item>
+                          {isAdmin && (
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/admin"
+                                  className={`${active ? 'bg-gray-100 dark:bg-gray-700' : ''} block px-4 py-2 text-sm text-gray-700 dark:text-gray-200`}
+                                >
+                                  Admin Panel
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          )}
                           <Menu.Item>
                             {({ active }) => (
                               <button
@@ -194,6 +215,14 @@ const Navbar = () => {
                   >
                     Settings
                   </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    >
+                      Admin Panel
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"

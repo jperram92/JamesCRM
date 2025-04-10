@@ -47,15 +47,52 @@ const Login = () => {
     // For demo purposes, we'll handle the admin@example.com/password case specially
     if (email === 'admin@example.com' && password === 'password') {
       // Mock successful login with demo user
-      localStorage.setItem('token', 'demo-token');
-      localStorage.setItem('user', JSON.stringify({
+      const demoUser = {
         id: 1,
         first_name: 'Admin',
         last_name: 'User',
         email: 'admin@example.com',
         role: 'admin'
-      }));
+      };
+      localStorage.setItem('token', 'demo-token');
+      localStorage.setItem('user', JSON.stringify(demoUser));
+
+      // Update Redux store with user info
+      dispatch({
+        type: 'auth/login/fulfilled',
+        payload: { user: demoUser, token: 'demo-token' }
+      });
       showSuccess('Login successful!');
+      navigate('/');
+      return;
+    }
+
+    // For demo/development without backend
+    if (process.env.REACT_APP_USE_MOCK_DATA === 'true') {
+      console.log('Using mock data for login');
+
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Create a mock user based on the email
+      const mockUser = {
+        id: 2,
+        first_name: email.split('@')[0],
+        last_name: 'User',
+        email: email,
+        role: 'user'
+      };
+
+      localStorage.setItem('token', 'mock-token-' + Date.now());
+      localStorage.setItem('user', JSON.stringify(mockUser));
+
+      // Update Redux store with user info
+      dispatch({
+        type: 'auth/login/fulfilled',
+        payload: { user: mockUser, token: 'mock-token-' + Date.now() }
+      });
+
+      showSuccess('Login successful (Mock)!');
       navigate('/');
       return;
     }
