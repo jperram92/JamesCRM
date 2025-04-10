@@ -19,6 +19,9 @@ import Companies from './pages/Companies';
 import CompanyDetail from './pages/CompanyDetail';
 import Contacts from './pages/Contacts';
 import ContactDetail from './pages/ContactDetail';
+import Deals from './pages/Deals';
+import DealDetail from './pages/DealDetail';
+import SignaturePage from './pages/SignaturePage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,6 +56,7 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Registration />} />
+                <Route path="/signature/:token" element={<SignaturePage />} />
                 <Route
                   path="/*"
                   element={
@@ -67,6 +71,8 @@ function App() {
                         <Route path="/companies/:id" element={<CompanyDetail />} />
                         <Route path="/contacts" element={<Contacts />} />
                         <Route path="/contacts/:id" element={<ContactDetail />} />
+                        <Route path="/deals" element={<Deals />} />
+                        <Route path="/deals/:id" element={<DealDetail />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>
