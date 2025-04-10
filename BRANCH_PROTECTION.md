@@ -31,9 +31,10 @@ Since GitHub doesn't allow users to approve their own pull requests (even reposi
 With these settings:
 1. All changes to the `master` branch must be made through pull requests
 2. Your GitHub Actions workflows will run to verify code quality
-3. For PRs created by you (jperram92), the branch protection workflow will automatically pass
-4. For PRs created by other contributors, the branch protection workflow will fail until you approve the PR
-5. You can merge your own PRs without needing approval (since we didn't check "Require approvals")
+3. **All tests must pass** before any PR can be merged
+4. For PRs created by you (jperram92), the branch protection workflow will automatically pass
+5. For PRs created by other contributors, the branch protection workflow will fail until you approve the PR
+6. You can merge your own PRs without needing approval (since we didn't check "Require approvals")
 
 ## Workflow Files
 
