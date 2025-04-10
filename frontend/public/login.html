@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - JamesCRM</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Sign in to JamesCRM
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Enter your credentials to access your account
+      </p>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold">Admin Demo</span>
+        Use email: <strong>admin@example.com</strong> and any password with 6+ characters
+      </p>
+    </div>
+    <form class="mt-8 space-y-6" id="loginForm" onsubmit="return handleLogin(event)">
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+          <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+            Remember me
+          </label>
+        </div>
+
+        <div class="text-sm">
+          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+            Forgot your password?
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+  <script>
+    // API base URL
+    const API_BASE_URL = 'http://localhost:3000/api';
+
+    // Debug mode
+    const DEBUG = true;
+
+    // Debug log function
+    function debugLog(message, data) {
+      if (DEBUG) {
+        console.log(`[DEBUG] ${message}`, data || '');
+      }
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email-address').value;
+      const password = document.getElementById('password').value;
+
+      // Basic validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return false;
+      }
+
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return false;
+      }
+
+      try {
+        debugLog('Attempting login with', { email });
+
+        try {
+          // Make login request to the real backend
+          const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          if (!response.ok) {
+            let message = 'Invalid credentials';
+            try {
+              const data = await response.json();
+              message = data.message || message;
+            } catch (e) {
+              // If we can't parse the error as JSON, use the status text
+              message = response.statusText || message;
+            }
+            throw new Error(message);
+          }
+
+          // Parse response
+          const data = await response.json();
+          debugLog('Login successful', data);
+
+          // Store token in localStorage
+          localStorage.setItem('token', data.token);
+
+          // Store user info
+          localStorage.setItem('user', JSON.stringify(data.user));
+
+          // Check if this is a first login (for invited users)
+          if (data.user.is_first_login) {
+            // Redirect to password change page (in a real app)
+            alert('This is your first login. You should change your password.');
+          }
+
+          // Show success message
+          alert(`Login successful! Welcome, ${data.user.first_name}`);
+
+          // Redirect based on user role
+          if (data.user.role === 'admin') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'simple.html';
+          }
+          return false;
+        } catch (apiError) {
+          debugLog('API login error', apiError);
+
+          // If the backend is not available, use mock login for demo purposes
+          if (apiError.message.includes('Failed to fetch')) {
+            debugLog('Backend not available, using mock login');
+
+            // Use mock login for demo purposes
+            if (email === 'admin@example.com' && password === 'admin123') {
+              debugLog('Using mock admin login');
+              const mockUser = {
+                id: 1,
+                first_name: 'Admin',
+                last_name: 'User',
+                email: 'admin@example.com',
+                role: 'admin',
+                status: 'active',
+                is_first_login: false
+              };
+              const mockToken = 'mock-jwt-token-for-demo-purposes-only';
+
+              // Store mock data
+              localStorage.setItem('token', mockToken);
+              localStorage.setItem('user', JSON.stringify(mockUser));
+
+              alert(`Mock login successful! Welcome, ${mockUser.first_name}`);
+              window.location.href = 'admin.html';
+              return false;
+            } else if (email === 'user@example.com' && password === 'user123') {
+              debugLog('Using mock user login');
+              const mockUser = {
+                id: 2,
+                first_name: 'Regular',
+                last_name: 'User',
+                email: 'user@example.com',
+                role: 'user',
+                status: 'active',
+                is_first_login: false
+              };
+              const mockToken = 'mock-jwt-token-for-demo-purposes-only';
+
+              // Store mock data
+              localStorage.setItem('token', mockToken);
+              localStorage.setItem('user', JSON.stringify(mockUser));
+
+              alert(`Mock login successful! Welcome, ${mockUser.first_name}`);
+              window.location.href = 'simple.html';
+              return false;
+            }
+
+            // If no mock credentials match, show error
+            errorElement.textContent = 'Invalid credentials';
+            errorElement.classList.remove('hidden');
+          } else {
+            // Show the actual error from the API
+            errorElement.textContent = apiError.message || 'Invalid credentials';
+            errorElement.classList.remove('hidden');
+          }
+        }
+      } catch (error) {
+        alert(`Login error: ${error.message}`);
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

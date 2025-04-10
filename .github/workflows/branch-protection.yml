@@ -1,0 +1,54 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  auto-approve-owner:
+    name: Auto-Approve Owner PRs
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Check PR author and auto-approve if owner
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Get PR author
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            const prAuthor = pullRequest.user.login;
+
+            // Log PR author for debugging
+            console.log(`PR author is: ${prAuthor}`);
+
+            // If PR author is jperram92 (repository owner), we'll consider it pre-approved
+            if (prAuthor === 'jperram92') {
+              console.log('PR created by repository owner jperram92 - considered pre-approved ✅');
+              // We can't actually approve it due to GitHub restrictions, but we'll mark it as passing
+            } else {
+              // For non-owner PRs, we'll check for approval
+              const { data: reviews } = await github.rest.pulls.listReviews({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+              });
+
+              const approvedByJames = reviews.some(review =>
+                review.user.login === 'jperram92' &&
+                review.state === 'APPROVED'
+              );
+
+              if (!approvedByJames) {
+                core.setFailed('This PR requires approval from jperram92 before it can be merged to master.');
+              } else {
+                console.log('PR has been approved by jperram92 ✅');
+              }
+            }

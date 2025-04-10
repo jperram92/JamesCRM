@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Companies - JamesCRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-xl font-bold">JamesCRM</div>
+        <div class="flex items-center space-x-6">
+          <div class="space-x-4">
+            <a href="simple.html" class="hover:text-gray-300">Dashboard</a>
+            <a href="companies.html" class="text-indigo-300 hover:text-indigo-200">Companies</a>
+            <a href="contacts.html" class="hover:text-gray-300">Contacts</a>
+            <a href="deals.html" class="hover:text-gray-300">Deals</a>
+            <a href="admin.html" class="hover:text-gray-300">Admin</a>
+            <a href="login.html" class="hover:text-gray-300">Logout</a>
+          </div>
+          <!-- User Info Container -->
+          <div id="userInfoContainer" class="border-l border-gray-700 pl-4"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <header class="bg-white shadow rounded-lg mb-8 p-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">Companies</h1>
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
+          Add New Company
+        </button>
+      </div>
+    </header>
+
+    <!-- Search and Filter -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex-1">
+          <input type="text" placeholder="Search companies..." class="w-full px-4 py-2 border rounded-md">
+        </div>
+        <div class="flex gap-4">
+          <select class="px-4 py-2 border rounded-md">
+            <option>All Industries</option>
+            <option>Technology</option>
+            <option>Healthcare</option>
+            <option>Finance</option>
+            <option>Manufacturing</option>
+            <option>Retail</option>
+          </select>
+          <select class="px-4 py-2 border rounded-md">
+            <option>Sort by Name</option>
+            <option>Sort by Date Added</option>
+            <option>Sort by Last Contact</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Companies List -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Company Name
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Industry
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Location
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Contact
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <!-- Company 1 -->
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">Acme Inc.</div>
+              <div class="text-sm text-gray-500">acmeinc.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Technology</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">San Francisco, CA</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">John Smith</div>
+              <div class="text-sm text-gray-500">john@acmeinc.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+            </td>
+          </tr>
+          <!-- Company 2 -->
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">XYZ Corporation</div>
+              <div class="text-sm text-gray-500">xyzcorp.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Finance</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">New York, NY</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Jane Doe</div>
+              <div class="text-sm text-gray-500">jane@xyzcorp.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+            </td>
+          </tr>
+          <!-- Company 3 -->
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">Global Tech</div>
+              <div class="text-sm text-gray-500">globaltech.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Technology</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Austin, TX</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Robert Johnson</div>
+              <div class="text-sm text-gray-500">robert@globaltech.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+            </td>
+          </tr>
+          <!-- Company 4 -->
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">MediCare Solutions</div>
+              <div class="text-sm text-gray-500">medicaresolutions.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Healthcare</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Boston, MA</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Sarah Williams</div>
+              <div class="text-sm text-gray-500">sarah@medicaresolutions.com</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+              <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="flex-1 flex justify-between sm:hidden">
+          <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Previous
+          </a>
+          <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Next
+          </a>
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">12</span> results
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Previous</span>
+                <!-- Heroicon name: solid/chevron-left -->
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                1
+              </a>
+              <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                2
+              </a>
+              <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                3
+              </a>
+              <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Next</span>
+                <!-- Heroicon name: solid/chevron-right -->
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white mt-12 py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-center">© 2025 JamesCRM. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="js/auth.js"></script>
+</body>
+</html>
