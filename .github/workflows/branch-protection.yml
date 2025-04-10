@@ -1,0 +1,36 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  approval-check:
+    name: Check PR Approval
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    steps:
+      - name: Check for required approvals
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            // Check if jperram92 has approved the PR
+            const approvedByJames = reviews.some(review => 
+              review.user.login === 'jperram92' && 
+              review.state === 'APPROVED'
+            );
+            
+            if (!approvedByJames) {
+              core.setFailed('This PR requires approval from jperram92 before it can be merged to main.');
+            } else {
+              console.log('PR has been approved by jperram92 ✅');
+            }

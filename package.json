@@ -1,0 +1,14 @@
+{
+  "name": "jamescrm",
+  "version": "1.0.0",
+  "description": "JamesCRM - A modern CRM application",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd frontend && npm start",
+    "test": "cd frontend && npm test",
+    "test:github-actions": "cd tests/github-actions && npm test",
+    "build": "cd frontend && npm run build"
+  },
+  "author": "",
+  "license": "ISC"
+}
