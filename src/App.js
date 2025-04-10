@@ -17,6 +17,8 @@ import Registration from './pages/Registration';
 import NotFound from './pages/NotFound';
 import Companies from './pages/Companies';
 import CompanyDetail from './pages/CompanyDetail';
+import Contacts from './pages/Contacts';
+import ContactDetail from './pages/ContactDetail';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +65,8 @@ function App() {
                         <Route path="/admin" element={<Admin />} />
                         <Route path="/companies" element={<Companies />} />
                         <Route path="/companies/:id" element={<CompanyDetail />} />
+                        <Route path="/contacts" element={<Contacts />} />
+                        <Route path="/contacts/:id" element={<ContactDetail />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>
