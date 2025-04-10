@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# JamesCRM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern customer relationship management system built with React, Node.js, and PostgreSQL.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Customer management
+- Sales pipeline tracking
+- Task and activity management
+- Reporting and analytics
+- User authentication and authorization
+- Responsive design for desktop and mobile
 
-### `npm start`
+## Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React, Tailwind CSS, Redux Toolkit
+- **Backend**: Node.js, Express
+- **Database**: PostgreSQL
+- **Authentication**: JWT
+- **Containerization**: Docker
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Repository Structure
 
-### `npm test`
+This is a monorepo containing both frontend and backend code. See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for details on the codebase organization.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v16 or higher)
+- Docker and Docker Compose
+- Git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jperram92/JamesCRM.git
+   cd JamesCRM
+   ```
 
-### `npm run eject`
+2. Install dependencies:
+   ```bash
+   # Install frontend dependencies
+   cd client
+   npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   # Install backend dependencies
+   cd ../server
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Set up environment variables:
+   ```bash
+   # Copy example environment files
+   cp .env.example .env
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Start the development environment:
+   ```bash
+   # Start all services with Docker Compose
+   docker-compose up
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   # Or start services individually
+   # Frontend
+   cd client
+   npm run dev
 
-## Learn More
+   # Backend
+   cd server
+   npm run dev
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Access the application:
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:3000
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Development
 
-### Code Splitting
+### Code Style
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This project uses ESLint and Prettier for code formatting. Run the following commands to ensure your code meets the style guidelines:
 
-### Analyzing the Bundle Size
+```bash
+# Check code style
+npm run lint
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Fix code style issues
+npm run lint:fix
+```
 
-### Making a Progressive Web App
+### Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# Run frontend tests
+cd client
+npm test
 
-### Advanced Configuration
+# Run backend tests
+cd server
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## CI/CD
 
-### Deployment
+This project uses GitHub Actions for continuous integration and deployment. See the [.github/workflows](/.github/workflows) directory for workflow configurations.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Branch Protection
 
-### `npm run build` fails to minify
+The repository is configured with branch protection rules to ensure code quality. See [BRANCH_PROTECTION.md](./BRANCH_PROTECTION.md) for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
