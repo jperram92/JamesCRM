@@ -20,7 +20,7 @@ const DataTable = ({
   // Handle sorting
   const handleSort = (key) => {
     if (!sortable) return;
-    
+
     let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
@@ -31,14 +31,14 @@ const DataTable = ({
   // Sort data
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return data;
-    
+
     return [...data].sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
-      
+
       if (aValue === null || aValue === undefined) return 1;
       if (bValue === null || bValue === undefined) return -1;
-      
+
       if (aValue < bValue) {
         return sortConfig.direction === 'asc' ? -1 : 1;
       }
@@ -52,7 +52,7 @@ const DataTable = ({
   // Paginate data
   const paginatedData = useMemo(() => {
     if (!pagination) return sortedData;
-    
+
     const startIndex = (currentPage - 1) * itemsPerPage;
     return sortedData.slice(startIndex, startIndex + itemsPerPage);
   }, [sortedData, currentPage, itemsPerPage, pagination]);
@@ -71,7 +71,7 @@ const DataTable = ({
   // Get sort icon
   const getSortIcon = (key) => {
     if (!sortable) return null;
-    
+
     if (sortConfig.key === key) {
       return sortConfig.direction === 'asc' ? (
         <ChevronUpIcon className="h-4 w-4 ml-1" />
@@ -130,7 +130,7 @@ const DataTable = ({
           {paginatedData.map((row, rowIndex) => (
             <tr
               key={row.id || rowIndex}
-              className={`table-row ${onRowClick ? 'cursor-pointer' : ''} ${rowClassName ? rowClassName(row) : ''}`}
+              className={`table-row ${onRowClick ? 'cursor-pointer' : ''} ${typeof rowClassName === 'function' ? rowClassName(row) : rowClassName || ''}`}
               onClick={() => onRowClick && onRowClick(row)}
             >
               {columns.map((column) => (
@@ -142,7 +142,7 @@ const DataTable = ({
           ))}
         </tbody>
       </table>
-      
+
       {pagination && totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
