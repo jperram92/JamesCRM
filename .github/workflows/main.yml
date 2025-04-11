@@ -80,6 +80,11 @@ jobs:
           cd server
           npm test
 
+      - name: Install test dependencies
+        run: |
+          cd tests
+          npm ci
+
       - name: Run comprehensive tests
         run: |
           cd tests
