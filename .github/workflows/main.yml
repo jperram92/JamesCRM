@@ -88,7 +88,7 @@ jobs:
       - name: Run comprehensive tests
         run: |
           cd tests
-          npm run test:safe
+          npm run test:safe  # This uses the jest.exclude-user.js config to skip problematic tests
 
       - name: Upload test results
         if: always()

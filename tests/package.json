@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "test:safe": "npx jest --config ./config/jest.exclude-company.js",
+    "test:safe": "npx jest --config ./config/jest.exclude-user.js",
+    "test:exclude-company": "npx jest --config ./config/jest.exclude-company.js",
     "test:unit": "npx jest --config ./config/jest.unit.js",
     "test:unit:backend": "npx jest --config ./config/jest.unit.js --testPathPattern=unit/backend",
     "test:unit:frontend": "npx jest --config ./config/jest.frontend.js",

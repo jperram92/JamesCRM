@@ -6,27 +6,11 @@ const request = require('supertest');
 const { mockCompanies, mockUsers, mockContacts, mockDeals } = require('../../mocks/data');
 const createMockApp = require('../mockApp');
 
-// Create a mock jwt object
-const jwtMock = {
-  sign: jest.fn().mockReturnValue('mock-token'),
-  verify: jest.fn().mockImplementation((token, secret, callback) => {
-    if (token === 'valid-token') {
-      return { id: 1, role: 'admin' };
-    } else {
-      throw new Error('Invalid token');
-    }
-  })
-};
+// Mock jsonwebtoken
+jest.mock('jsonwebtoken', () => require('../../mocks/modules/jsonwebtoken'));
 
-// Try to mock jsonwebtoken, but handle the case where it might not be available
-try {
-  jest.mock('jsonwebtoken', () => jwtMock);
-} catch (error) {
-  console.warn('Could not mock jsonwebtoken module, using mock object directly');
-}
-
-// Make jwt available for the test
-const jwt = jwtMock;
+// Import the mocked module
+const jwt = require('jsonwebtoken');
 
 // Create a mock Express app
 const app = createMockApp();
