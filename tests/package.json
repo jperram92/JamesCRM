@@ -1,0 +1,49 @@
+{
+  "name": "jamescrm-tests",
+  "version": "1.0.0",
+  "description": "Test suite for JamesCRM",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:safe": "jest --config ./config/jest.exclude-company.js",
+    "test:unit": "jest --config ./config/jest.unit.js",
+    "test:unit:backend": "jest --config ./config/jest.unit.js --testPathPattern=unit/backend",
+    "test:unit:frontend": "jest --config ./config/jest.unit.js --testPathPattern=unit/frontend",
+    "test:integration": "jest --config ./config/jest.integration.js",
+    "test:e2e": "jest --config ./config/jest.e2e.js",
+    "test:coverage": "jest --config ./config/jest.unit.js --coverage",
+    "test:coverage:safe": "jest --config ./config/jest.exclude-company.js --coverage",
+    "test:watch": "jest --config ./config/jest.unit.js --watch",
+    "test:ci": "jest --config ./config/jest.exclude-company.js --ci --coverage"
+  },
+  "keywords": [
+    "test",
+    "jest",
+    "crm"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "msw": "^2.2.2",
+    "node-mocks-http": "^1.14.1",
+    "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
+    "sequelize": "^6.35.1",
+    "sqlite3": "^5.1.7"
+  }
+}
