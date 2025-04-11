@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.client
+    container_name: jamescrm-client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    container_name: jamescrm-server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000

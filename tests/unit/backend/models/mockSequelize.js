@@ -5,8 +5,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 // Create an in-memory SQLite database for testing
-const sequelize = new Sequelize('sqlite::memory:', {
-  logging: false // Disable logging
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: ':memory:',  // Use in-memory SQLite database
+  logging: false,       // Disable logging
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  }
 });
 
 // Define the User model

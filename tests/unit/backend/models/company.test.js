@@ -2,31 +2,13 @@
  * Unit tests for Company model
  */
 
-// Import dependencies
-const { mockCompanies } = require('../../../mocks/data');
-
-// Import mock sequelize setup
-const { sequelize, Company } = require('./mockSequelize');
-
-// Sync the database before tests
-beforeAll(async () => {
-  await sequelize.sync({ force: true });
-});
-
-// Close the connection after tests
-afterAll(async () => {
-  await sequelize.close();
-});
+// Import the mock company model
+const Company = require('./company.mock');
 
 describe('Company Model', () => {
-  // Set up the database before tests
-  beforeAll(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  // Reset the database before each test
-  beforeEach(async () => {
-    await Company.destroy({ where: {}, force: true });
+  // Reset mocks before each test
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('create', () => {

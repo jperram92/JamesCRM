@@ -8,13 +8,16 @@
     "test:safe": "jest --config ./config/jest.exclude-company.js",
     "test:unit": "jest --config ./config/jest.unit.js",
     "test:unit:backend": "jest --config ./config/jest.unit.js --testPathPattern=unit/backend",
-    "test:unit:frontend": "jest --config ./config/jest.unit.js --testPathPattern=unit/frontend",
+    "test:unit:frontend": "jest --config ./config/jest.frontend.js",
     "test:integration": "jest --config ./config/jest.integration.js",
     "test:e2e": "jest --config ./config/jest.e2e.js",
     "test:coverage": "jest --config ./config/jest.unit.js --coverage",
     "test:coverage:safe": "jest --config ./config/jest.exclude-company.js --coverage",
     "test:watch": "jest --config ./config/jest.unit.js --watch",
-    "test:ci": "jest --config ./config/jest.exclude-company.js --ci --coverage"
+    "test:ci": "jest --config ./config/jest.exclude-company.js --ci --coverage",
+    "test:all": "npm run test:unit:backend && npm run test:unit:frontend && npm run test:integration",
+    "test:company": "jest --config ./config/jest.company.js",
+    "test:frontend": "jest --config ./config/jest.frontend.js"
   },
   "keywords": [
     "test",
@@ -26,7 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-react": "^7.26.3",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
