@@ -5,10 +5,21 @@
   "main": "index.js",
   "scripts": {
     "start": "cd frontend && npm start",
-    "test": "cd frontend && npm test",
+    "test": "cd tests && npm test",
+    "test:unit": "cd tests && npm run test:unit",
+    "test:unit:backend": "cd tests && npm run test:unit:backend",
+    "test:unit:frontend": "cd tests && npm run test:unit:frontend",
+    "test:integration": "cd tests && npm run test:integration",
+    "test:e2e": "cd tests && npm run test:e2e",
+    "test:coverage": "cd tests && npm run test:coverage",
     "test:github-actions": "cd tests/github-actions && npm test",
     "build": "cd frontend && npm run build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "nodemailer": "^6.10.0"
+  }
 }

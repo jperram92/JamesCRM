@@ -1,93 +1,102 @@
-const bcrypt = require('bcrypt');
+/**
+ * User model definition
+ */
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     first_name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     last_name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     email: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
-      },
+        isEmail: true
+      }
     },
     password: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false
     },
     role: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.ENUM('user', 'admin'),
       defaultValue: 'user',
+      validate: {
+        isIn: {
+          args: [['user', 'admin']],
+          msg: 'Role must be either user or admin'
+        }
+      }
     },
     status: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
+      type: DataTypes.ENUM('active', 'inactive', 'pending', 'invited'),
       defaultValue: 'active',
       validate: {
-        isIn: [['active', 'inactive', 'invited', 'suspended']],
-      },
+        isIn: {
+          args: [['active', 'inactive', 'pending', 'invited']],
+          msg: 'Status must be active, inactive, pending, or invited'
+        }
+      }
     },
-    last_login_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    invitation_token: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
-    password_changed_at: {
+    invitation_token_expires: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true
     },
     reset_token: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
+      type: DataTypes.STRING,
+      allowNull: true
     },
     reset_token_expires: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true
+    },
+    last_login: {
+      type: DataTypes.DATE,
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      defaultValue: DataTypes.NOW
     },
     updated_at: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
+      defaultValue: DataTypes.NOW
+    }
   }, {
-    tableName: 'users',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    hooks: {
-      beforeCreate: async (user) => {
-        if (user.password) {
-          const salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-      beforeUpdate: async (user) => {
-        if (user.changed('password')) {
-          const salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-    },
+    tableName: 'users'
   });
 
-  // Instance method to check password
-  User.prototype.checkPassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
+  // Define associations
+  User.associate = (models) => {
+    User.hasMany(models.Company, { foreignKey: 'owner_id' });
+    User.hasMany(models.Contact, { foreignKey: 'owner_id' });
+    User.hasMany(models.Deal, { foreignKey: 'owner_id' });
+    User.hasMany(models.Task, { foreignKey: 'assignee_id' });
+    User.hasMany(models.Activity, { foreignKey: 'user_id' });
   };
 
   return User;
