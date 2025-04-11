@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744355053478" clover="3.2.0">
-  <project timestamp="1744355053478" name="All files">
-    <metrics statements="269" coveredstatements="220" conditionals="134" coveredconditionals="108" methods="33" coveredmethods="22" elements="436" coveredelements="350" complexity="0" loc="269" ncloc="269" packages="7" files="13" classes="13"/>
+<coverage generated="1744355402330" clover="3.2.0">
+  <project timestamp="1744355402331" name="All files">
+    <metrics statements="312" coveredstatements="260" conditionals="135" coveredconditionals="109" methods="40" coveredmethods="27" elements="487" coveredelements="396" complexity="0" loc="312" ncloc="312" packages="8" files="15" classes="15"/>
     <package name="integration">
       <metrics statements="97" coveredstatements="85" conditionals="40" coveredconditionals="40" methods="8" coveredmethods="8"/>
       <file name="mockApp.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\integration\mockApp.js">
@@ -109,41 +109,41 @@
       <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="activities.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\activities.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="72" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="72" count="8" type="stmt"/>
       </file>
       <file name="companies.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\companies.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="56" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="56" count="8" type="stmt"/>
       </file>
       <file name="contacts.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\contacts.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="80" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="80" count="8" type="stmt"/>
       </file>
       <file name="deals.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\deals.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="56" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="56" count="8" type="stmt"/>
       </file>
       <file name="index.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\index.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="6" count="7" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
-        <line num="8" count="7" type="stmt"/>
-        <line num="9" count="7" type="stmt"/>
-        <line num="11" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="6" count="8" type="stmt"/>
+        <line num="7" count="8" type="stmt"/>
+        <line num="8" count="8" type="stmt"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="11" count="8" type="stmt"/>
       </file>
       <file name="users.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\data\users.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="54" count="7" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="54" count="8" type="stmt"/>
       </file>
     </package>
     <package name="mocks.modules">
-      <metrics statements="8" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="2"/>
+      <metrics statements="20" coveredstatements="13" conditionals="3" coveredconditionals="1" methods="11" coveredmethods="7"/>
       <file name="bcrypt.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\modules\bcrypt.js">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
@@ -157,6 +157,21 @@
         <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="9" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
+      </file>
+      <file name="sequelize.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\mocks\modules\sequelize.js">
+        <metrics statements="12" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="5"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="8" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
       </file>
     </package>
     <package name="mocks.services">
@@ -236,6 +251,43 @@
         <line num="206" count="0" type="stmt"/>
         <line num="207" count="0" type="stmt"/>
         <line num="212" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="unit.backend.models">
+      <metrics statements="31" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="mockSequelize.js" path="C:\Users\james\Documents\augment-projects\JamesCRM\tests\unit\backend\models\mockSequelize.js">
+        <metrics statements="31" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="140" count="1" type="stmt"/>
+        <line num="153" count="1" type="stmt"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="156" count="1" type="stmt"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="159" count="1" type="stmt"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="164" count="1" type="stmt"/>
+        <line num="167" count="1" type="stmt"/>
       </file>
     </package>
     <package name="unit.backend.services">
