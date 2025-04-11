@@ -103,11 +103,42 @@ npm test
 
 ## Deployment
 
+### Using Docker
+
 The application can be deployed using Docker:
 
 ```bash
 docker-compose -f docker-compose.prod.yml up -d
 ```
+
+### Running the Production Build Locally
+
+To run the production-ready website locally:
+
+1. Start the Backend Server (Optional):
+   ```bash
+   cd backend
+   npm run dev
+   ```
+   This starts the backend server on port 5000.
+
+2. Serve the Static Frontend Files:
+   ```bash
+   cd frontend/build
+   npx serve
+   ```
+   When prompted to install the `serve` package, type `y` and press Enter.
+   This will start a static file server on port 3000.
+
+3. Access the Website:
+   - Main application: http://localhost:3000
+   - Dashboard: http://localhost:3000/simple.html
+   - Companies page: http://localhost:3000/companies.html
+   - Deals page: http://localhost:3000/deals.html
+   - Login page: http://localhost:3000/login.html
+
+4. Stop the Servers:
+   When you're done, press `Ctrl+C` in each terminal window to stop the servers.
 
 ## License
 

@@ -3,12 +3,14 @@
  */
 
 const request = require('supertest');
-const jwt = require('jsonwebtoken');
 const { mockCompanies, mockUsers, mockContacts, mockDeals } = require('../../mocks/data');
 const createMockApp = require('../mockApp');
 
-// Mock jwt
-jest.mock('jsonwebtoken');
+// Mock jsonwebtoken
+jest.mock('jsonwebtoken', () => require('../../mocks/modules/jsonwebtoken'));
+
+// Import the mocked module
+const jwt = require('jsonwebtoken');
 
 // Create a mock Express app
 const app = createMockApp();
@@ -31,15 +33,7 @@ const Deal = app.models.Deal = {
   findAll: jest.fn()
 };
 
-// Mock jwt methods
-jwt.sign.mockReturnValue('mock-token');
-jwt.verify.mockImplementation((token, secret, callback) => {
-  if (token === 'valid-token') {
-    return { id: 1, role: 'admin' };
-  } else {
-    throw new Error('Invalid token');
-  }
-});
+// JWT mock methods are already set up in the jwtMock object above
 
 describe('Companies API', () => {
   beforeEach(() => {

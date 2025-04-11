@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     // In a real app, this would call an API endpoint
     try {
       // Simulate API call
@@ -22,7 +22,7 @@ const Login = () => {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('Login error:', err);
+      // Error is already handled by setting the error state
     }
   };
 

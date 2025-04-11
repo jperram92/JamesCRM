@@ -19,15 +19,12 @@ jest.mock('../../../../server/src/models', () => ({
   },
 }));
 
-jest.mock('jsonwebtoken', () => ({
-  sign: jest.fn(() => 'mock-token'),
-  verify: jest.fn(),
-}));
+// Mock jsonwebtoken
+jest.mock('jsonwebtoken', () => require('../../../mocks/modules/jsonwebtoken'));
 
-jest.mock('bcrypt', () => ({
-  compare: jest.fn(),
-  hash: jest.fn(() => 'hashed-password'),
-}));
+
+// Mock bcrypt
+jest.mock('bcrypt', () => require('../../../mocks/modules/bcrypt'));
 
 // Mock the email service
 jest.mock('../../../../server/src/services/emailService', () => require('../../../mocks/services/emailService'));
