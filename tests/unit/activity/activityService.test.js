@@ -1,5 +1,5 @@
 /**
- * Unit tests for activity service
+ * Unit tests for activity services
  */
 
 describe('Activity Service', () => {
