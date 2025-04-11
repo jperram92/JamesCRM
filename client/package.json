@@ -11,7 +11,7 @@
     "test:vitest": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test": "npm run test:vitest && cd .. && npm run test"
+    "test": "npm run test:vitest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
