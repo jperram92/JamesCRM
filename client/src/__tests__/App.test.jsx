@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import App from '../App';
-import * as router from 'react-router-dom';
 
 // Mock the RouterProvider to avoid router errors in tests
 vi.mock('react-router-dom', async () => {
