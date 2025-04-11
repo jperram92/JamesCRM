@@ -19,10 +19,17 @@ jest.mock('../../../../server/src/models', () => ({
   },
 }));
 
-jest.mock('jsonwebtoken', () => ({
+// Mock jsonwebtoken - using a try/catch to handle potential missing module in CI
+let jwtMock = {
   sign: jest.fn(() => 'mock-token'),
-  verify: jest.fn(),
-}));
+  verify: jest.fn()
+};
+
+try {
+  jest.mock('jsonwebtoken', () => jwtMock);
+} catch (error) {
+  console.warn('Could not mock jsonwebtoken module, using mock object instead');
+}
 
 jest.mock('bcrypt', () => ({
   compare: jest.fn(),
